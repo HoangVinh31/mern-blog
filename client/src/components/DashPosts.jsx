@@ -1,5 +1,4 @@
 import { Modal, Table, Button } from "flowbite-react";
-import { set } from "mongoose";
 import { useEffect, useState } from "react"
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { useSelector } from 'react-redux';
@@ -13,25 +12,27 @@ export default function DashPosts(){
     const [showModal, setShowModal] = useState(false);
     const [postIdToDelete, setPostIdToDelete] = useState('');
 
-    useEffect( async()=>{
-        const fetchPosts = async()=>{
-            try {
-                const res = await fetch (`/api/post/getposts?userId=${currentUser._id}`)
-                const data = await res.json()
-                if(res.ok){
-                    setUserPosts(data.posts)
-                    if(data.posts.length <9){
-                        setShowMore(false);
-                    }
-                }
-            } catch (error) {
-                console.log(error.message)
-            }
-        }
-        if(currentUser.isAdmin){
-            fetchPosts()
-        }
-    }, [currentUser._id])
+    useEffect(() => {
+      const fetchPosts = async () => {
+          try {
+              const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`);
+              const data = await res.json();
+              if (res.ok) {
+                  setUserPosts(data.posts);
+                  if (data.posts.length < 9) {
+                      setShowMore(false);
+                  }
+              }
+          } catch (error) {
+              console.log(error.message);
+          }
+      };
+  
+      if (currentUser.isAdmin) {
+          fetchPosts();
+      }
+  }, [currentUser._id]); // Đảm bảo chỉ chạy khi currentUser._id thay đổi
+  
 
     const handleShowMore = async()=>{
         const startIndex = userPosts.length;
