@@ -21,10 +21,18 @@ const userSchema = new mongoose.Schema(
       default:
         "https://cdn.pixabay.com/photo/2017/06/13/12/54/profile-2398783_1280.png", // Default profile picture if no picture uploaded
     },
+    isVerified:{
+      type: Boolean,
+      default: false,
+    },
     isAdmin: {
       type: Boolean,
       default: false,
     },
+    resetPasswordToken: String,
+    resetPasswordExpiresAt: Date,
+    verificationToken: String,
+    verificationTokenExpiresAt: Date,
   },
   { timestamps: true }
 );
